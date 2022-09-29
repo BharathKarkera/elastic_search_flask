@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title> Elasticsearch Auto completion </title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	        <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+
+	<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+<script src='https://cdn.rawgit.com/pguso/jquery-plugin-circliful/master/js/jquery.circliful.min.js'></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+
+	</head>
+	<body>
+		<input class="search-box">
+		<ul class="results"></ul>
+		<script>
+			$(document).ready(function() {
+				
+							
+					$('.search-box').on('keydown', function(e) {
+								     		console.log(e.key)	
+								     		getAutocomplete(); 
+									   }
+						   	   )
+
+					            }
+					  )
+						
+
+			function getAutocomplete() {
+							console.log("autocompletion")
+							const query= $('.search-box').val();
+							console.log(`searching for ${query}`)
+							var obj;
+
+							fetch(`http://localhost:5000/search?q=${encodeURIComponent(query)}`)
+							.then((response) => response.json())
+							.then(data => obj = data )
+							.then(() => console.log(obj)) 
+							
+							$('.search-box').devbridgeAutocomplete(
+											{source: obj}
+											);
+
+										}
+			
+		</script>
+	</body>
+</html>
